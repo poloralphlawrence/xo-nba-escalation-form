@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalation Form</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            max-height: 100vh;  /* Limit max height */
+            overflow-y: auto;  /* Make form scrollable */
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .form-container::before {
+            content: '';
+            display: block;
+            height: 15px;
+            background-color: #4f6ca4;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        /* Form Title */
+        h1 {
+            font-weight: bold;
+            color: black;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        h5 {
+            font-weight: 100;
+            text-align: center;
+            color: black;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Fields */
+        label, input, select, option {
+            color: black;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="text"], select {
+            background-color: #f0f0f0;
+            color: black;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .submit-button {
+            background-color: #4f6ca4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+            width: 100%;
+            disabled: true; /* Initially disabled */
+        }
+
+        /* Footer */
+        .footer {
+            text-align: left;
+            margin-top: 20px;
+            color: black;
+            font-family: 'Poppins', sans-serif;
+            font-size: 10px;
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        async function fetchIP() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('ipField').value = data.ip;
+        }
+
+        function validateEmail() {
+            const emailInput = document.getElementById('emailField');
+            const submitButton = document.querySelector('.submit-button');
+
+            // Enable submit button if email field is not empty
+            submitButton.disabled = emailInput.value.trim() === '';
+        }
+
+        window.onload = function() {
+            fetchIP();
+            const emailInput = document.getElementById('emailField');
+            emailInput.addEventListener('input', validateEmail);
+            const deviceCheckboxes = document.querySelectorAll('input[name="devices"]');
+            deviceCheckboxes.forEach(function(checkbox) {
+                checkbox.addEventListener('change', handleDeviceChange);
+            });
+            validateEmail(); // Initial check
+        };
+    </script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>XO - NBA Escalation Form</h1>
+        <h5>This form is for reporting all issues to NBA team for resolution.</h5>
+        <form id="myForm" action="https://script.google.com/a/macros/xtendops.us/s/AKfycbyea6NSm_EUf4aijtZzLuMSqoW0_Dx6u14yrudy5S4ry2nRpzZ-OTAeNGCFHWQWUCQs1Q/exec" method="POST">
+            
+            <label for="emailField"><b>XO Email *</b></label><br>
+            <input type="text" id="emailField" name="emailAddress" required><br><br>
+
+            <label for="TIDField"><b>Ticket ID</b></label><br>
+            <input type="text" id="TIDField" name="TIDField" required><br><br>
+
+            <label for="NBAIDField"><b>NBA ID</b></label><br>
+            <input type="text" id="NBAIDField" name="NBAIDField" required><br><br>
+
+            <label for="CIAMIDField"><b>CIAM ID</b></label><br>
+            <input type="text" id="CIAMIDField" name="CIAMIDField" required><br><br>
+
+            <label for="errordropdown"><b>Error Code</b></label><br>
+            <select id="errordropdown" name="errordropdown" required>
+                <option value="1001">1001</option>
+                <option value="1400">1400</option>
+                <option value="3008">3008</option>
+                <option value="3097">3097</option>
+                <option value="7027 / 7028">7027 / 7028</option>
+                <option value="Incorrect Blackout">Incorrect Blackout</option>
+                <option value="11-4-71-2001">11-4-71-2001</option>
+                <option value="12 -Access Token Cannot Be Null">12 -Access Token Cannot Be Null</option>
+                <option value="A&V and latency on Apple TV">A&V and latency on Apple TV</option>
+                <option value="A&V out of sync on Apple TV">A&V out of sync on Apple TV</option>
+                <option value="App Freeze after Ad">App Freeze after Ad</option>
+                <option value="Apple TV Error 4-72-2101">Apple TV Error 4-72-2101</option>
+                <option value="Code 2003 Invalid DRM error">Code 2003 Invalid DRM error</option>
+                <option value="Error Code 4-63-400">Error Code 4-63-400</option>
+                <option value="Error Code 4-73-2202">Error Code 4-73-2202</option>
+                <option value="Fire TV Buffering">Fire TV Buffering</option>
+                <option value="Login Loop">Login Loop</option>
+                <option value="TVE Upgrade error live and VOD">TVE Upgrade error live and VOD</option>
+                <option value="TVE VOD-only Game Access Issue">TVE VOD-only Game Access Issue</option>
+                <option value="Unable to select 1080p">Unable to select 1080p</option>
+                <option value="Unwanted Upgrade or Fraud Claim">Unwanted Upgrade or Fraud Claim</option>
+                <option value="Upgrade to Watch">Upgrade to Watch</option>
+                <option value="Video freeze">Video freeze</option>
+                <option value="Other">Other (Please specify the error in the Additional Notes)</option>
+            </select><br><br>
+           
+            <label for="devices"><b>Device</b></label><br>
+            <select id="devices" name="devices" required>
+                <option value="iPhone">iPhone</option>
+                <option value="iPad">iPad</option>
+                <option value="Macbook">Macbook</option>
+                <option value="Apple TV">Apple TV</option>
+                <option value="Apple Vision Pro">Apple Vision Pro</option>
+                <option value="Web">Web</option>
+                <option value="Android Mobile">Android Mobile</option>
+                <option value="Android TV">Android TV</option>
+                <option value="Roku">Roku</option>
+                <option value="Playstation">Playstation</option>
+                <option value="Xbox">Xbox</option>
+                <option value="Fire TV">Fire TV</option>
+                <option value="Fire Stick">Fire Stick</option>
+                <option value="Chromecast">Chromecast</option>
+            </select><br><br>
+
+            <label for="OtherField"><b>Other Devices</b></label><br>
+            <input type="text" id="OtherField" name="OtherField"><br><br>
+
+            <label for="AVField"><b>App Version</b></label><br>
+            <input type="text" id="AVField" name="AVField" required><br><br>
+
+            <label for="OSField"><b>OS Version</b></label><br>
+            <input type="text" id="OSField" name="OSField" required><br><br>
+
+            <label for="BRField"><b>Browser</b></label><br>
+            <input type="text" id="BRField" name="BRField" required><br><br>
+
+            <label for="LocField"><b>Location</b></label><br>
+            <input type="text" id="LocField" name="LocField" required><br><br>
+
+            <label for="contentdropdown"><b>Type of Content</b></label><br>
+            <select id="contentdropdown" name="contentdropdown" required>
+                <option value="Live">Live</option>
+                <option value="VOD">VOD</option>
+                <option value="Recaps">Recaps</option>
+            </select><br><br>
+
+            <label for="SGField"><b>Specific Game and Feed (e.g. Lakers vs Warriors)</b></label><br>
+            <input type="text" id="SGField" name="SGField" required><br><br>
+
+            <label for="ppdropdown"><b>Purchase Platform</b></label><br>
+            <select id="ppdropdown" name="ppdropdown" required>
+                <option value="Web">Web</option>
+                <option value="App Store">App Store</option>
+                <option value="Google Play">Google Play</option>
+                <option value="3P">Third-Party Providers</option>
+                <option value="Not a Subscriber">Not a Subscriber</option>
+                <option value="Other">Other</option>
+      </select><br><br>
+
+            <label for="ANField"><b>Additional Notes</b></label><br>
+            <input type="text" id="ANField" name="ANField" required>
+
+            <input type="hidden" id="ipField" name="ipAddress">
+            <br><br>
+            <input type="submit" value="Submit" class="submit-button" disabled>
+        </form>
+        <div class="footer">
+            Created by:<br>Ralph Lawrence Villamor  |  Team Lead - NBA<br><br>
+        </div>
+    </div>
+</body>
+</html>
