@@ -89,7 +89,6 @@
             cursor: pointer;
             border-radius: 12px;
             width: 100%;
-            disabled: true; /* Initially disabled */
         }
 
         /* Footer */
@@ -99,6 +98,23 @@
             color: black;
             font-family: 'Poppins', sans-serif;
             font-size: 10px;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 30px;
+            height: 30px;
+            border: 4px solid transparent;
+            border-top: 4px solid #4f6ca4;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
     </style>
@@ -122,19 +138,32 @@
             fetchIP();
             const emailInput = document.getElementById('emailField');
             emailInput.addEventListener('input', validateEmail);
-            const deviceCheckboxes = document.querySelectorAll('input[name="devices"]');
-            deviceCheckboxes.forEach(function(checkbox) {
-                checkbox.addEventListener('change', handleDeviceChange);
-            });
             validateEmail(); // Initial check
         };
+
+        // Function to handle form submission and show loading spinner
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevents default form submission behavior
+
+            const form = event.target;
+            const submitButton = document.querySelector('.submit-button');
+            const loadingSpinner = document.querySelector('.loading-spinner');
+
+            submitButton.style.display = 'none'; // Hide submit button
+            loadingSpinner.style.display = 'block'; // Show loading spinner
+
+            // Simulate form submission delay (you can remove the setTimeout in production)
+            setTimeout(() => {
+                form.submit(); // Submit the form
+            }, 2000); // Adjust delay as needed (for demonstration purposes)
+        }
     </script>
 </head>
 <body>
     <div class="form-container">
         <h1>XO - NBA Escalation Form</h1>
         <h5>This form is for reporting all issues to NBA team for resolution.</h5>
-        <form id="myForm" action="https://script.google.com/macros/s/AKfycby24kFOaf9RDMd_Smu4yFgvWmLwz6mt6Bo-X6caxmtYExAUYkAkH4QZvFXLFTljfBvh/exec" method="POST">
+        <form id="myForm" action="https://script.google.com/macros/s/AKfycby24kFOaf9RDMd_Smu4yFgvWmLwz6mt6Bo-X6caxmtYExAUYkAkH4QZvFXLFTljfBvh/exec" method="POST" onsubmit="handleSubmit(event)">
             
             <label for="emailField"><b>XO Email *</b></label><br>
             <input type="text" id="emailField" name="emailAddress" required><br><br>
@@ -227,7 +256,7 @@
                 <option value="3P">Third-Party Providers</option>
                 <option value="Not a Subscriber">Not a Subscriber</option>
                 <option value="Other">Other</option>
-      </select><br><br>
+            </select><br><br>
 
             <label for="ANField"><b>Additional Notes</b></label><br>
             <input type="text" id="ANField" name="ANField" required>
@@ -236,6 +265,10 @@
             <br><br>
             <input type="submit" value="Submit" class="submit-button" disabled>
         </form>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner"></div>
+
         <div class="footer">
             Created by:<br>Ralph Lawrence Villamor  |  Team Lead - NBA<br><br>
         </div>
