@@ -120,6 +120,12 @@
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <script>
+        async function fetchIP() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            document.getElementById('ipField').value = data.ip;
+        }
+
         function validateEmail() {
             const emailInput = document.getElementById('emailField');
             const submitButton = document.querySelector('.submit-button');
@@ -157,7 +163,7 @@
     <div class="form-container">
         <h1>XO - NBA Escalation Form</h1>
         <h5>This form is for reporting all issues to NBA team for resolution.</h5>
-        <form id="myForm" action="https://script.google.com/macros/s/AKfycbyLEHThQ5sgVowuqWSkENTN6kERDv_bfYIJjLN_V_6QK4Fzw6cSdQvPfuWDgNtkwme_/exec" method="POST" onsubmit="handleSubmit(event)">
+        <form id="myForm" action="https://script.google.com/macros/s/AKfycbyYVY2Ch51l8h8LqAX80SOiFSfoNIyJgA8exQsr9nXMQuyIft7hxlIUk282Yad71B7C/exec" method="POST" onsubmit="handleSubmit(event)">
             
             <label for="emailField"><b>XO Email *</b></label><br>
             <input type="text" id="emailField" name="emailAddress" required><br><br>
@@ -256,6 +262,7 @@
             <label for="ANField"><b>Additional Notes</b></label><br>
             <input type="text" id="ANField" name="ANField" required>
 
+            <input type="hidden" id="ipField" name="ipAddress">
             <br><br>
             <input type="submit" value="Submit" class="submit-button" disabled>
         </form>
